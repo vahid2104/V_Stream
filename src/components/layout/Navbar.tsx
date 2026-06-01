@@ -12,7 +12,7 @@ const Navbar = () => {
     { label: "About", href: "/about" },
   ];
   return (
-    <header className="left-0 top-0 z-50 w-full">
+    <header className="absolute left-0 top-0 z-50 w-full">
       <div className="mx-auto flex max-w-295 items-center justify-between gap-6 px-6 py-6">
         <Link href="/" className="text-2xl font-bold">
           <Image
