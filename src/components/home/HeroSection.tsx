@@ -12,8 +12,8 @@ export default function HeroSection() {
         fill
       />
 
-      <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/35 to-black/20" />
-      <div className="absolute inset-0 bg-linear-to-t from-[#06070d] via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/20 to-black/90" />
+      <div className="absolute inset-0 bg-linear-to-t from-[#06070d] via-transparent to-black/90" />
 
       <div className="relative z-10 mx-auto flex min-h-175 max-w-295 items-center px-6 pt-20">
         <div className="max-w-170 space-y-4">
