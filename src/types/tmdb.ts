@@ -70,3 +70,14 @@ export type TMDBCreditsResponse = {
   id: number;
   cast: TMDBCastMember[];
 };
+
+export type TMDBWatchProvider = {
+  provider_id: number;
+  provider_name: string;
+  logo_path: string | null;
+  display_priority: number;
+};
+
+export type TMDBWatchProvidersResponse = {
+  results: TMDBWatchProvider[];
+};

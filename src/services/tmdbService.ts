@@ -8,6 +8,8 @@ import type {
   TMDBResponse,
   TMDBVideo,
   TMDBVideosResponse,
+  TMDBWatchProvider,
+TMDBWatchProvidersResponse,
 } from "@/types/tmdb";
 
 export async function getTrendingMovies() {
@@ -107,4 +109,21 @@ export async function getMediaCredits(mediaType: MediaType, id: number) {
   );
 
   return data.cast.slice(0, 12) as TMDBCastMember[];
+}
+
+export async function getMovieWatchProviders(region = "US") {
+  const data = await fetchFromTMDB<TMDBWatchProvidersResponse>(
+    `/watch/providers/movie?watch_region=${region}`,
+    {
+      next: { revalidate: 60 * 60 * 24 },
+    }
+  );
+
+  return data.results
+    .filter((provider: TMDBWatchProvider) => provider.logo_path)
+    .sort(
+      (a: TMDBWatchProvider, b: TMDBWatchProvider) =>
+        a.display_priority - b.display_priority
+    )
+    .slice(0, 16);
 }
