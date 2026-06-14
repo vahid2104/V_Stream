@@ -18,6 +18,7 @@ import {
   getTrendingMovies,
   getUpcomingMovies,
 } from "@/services/tmdbService";
+import Footer from "@/components/layout/Footer/Footer";
 
 export default async function HomePage() {
   const [
@@ -87,6 +88,8 @@ export default async function HomePage() {
         fastMovies={fastMovies}
         liveMovies={liveMovies}
       />
+
+      <Footer />
     </MainLayout>
   );
 }
