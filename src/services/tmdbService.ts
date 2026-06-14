@@ -9,7 +9,7 @@ import type {
   TMDBVideo,
   TMDBVideosResponse,
   TMDBWatchProvider,
-TMDBWatchProvidersResponse,
+  TMDBWatchProvidersResponse,
 } from "@/types/tmdb";
 
 export async function getTrendingMovies() {
@@ -61,7 +61,7 @@ export async function searchMulti(query: string) {
     `/search/multi?query=${encodedQuery}`,
     {
       cache: "no-store",
-    }
+    },
   );
 }
 
@@ -76,7 +76,7 @@ export async function getMediaVideos(mediaType: MediaType, id: number) {
     `/${mediaType}/${id}/videos`,
     {
       next: { revalidate: 60 * 60 },
-    }
+    },
   );
 
   return data.results;
@@ -88,13 +88,11 @@ export async function getMediaTrailer(mediaType: MediaType, id: number) {
   return (
     videos.find(
       (video: TMDBVideo) =>
-        video.site === "YouTube" &&
-        video.type === "Trailer" &&
-        video.official
+        video.site === "YouTube" && video.type === "Trailer" && video.official,
     ) ||
     videos.find(
       (video: TMDBVideo) =>
-        video.site === "YouTube" && video.type === "Trailer"
+        video.site === "YouTube" && video.type === "Trailer",
     ) ||
     null
   );
@@ -105,7 +103,7 @@ export async function getMediaCredits(mediaType: MediaType, id: number) {
     `/${mediaType}/${id}/credits`,
     {
       next: { revalidate: 60 * 60 },
-    }
+    },
   );
 
   return data.cast.slice(0, 12) as TMDBCastMember[];
@@ -116,14 +114,23 @@ export async function getMovieWatchProviders(region = "US") {
     `/watch/providers/movie?watch_region=${region}`,
     {
       next: { revalidate: 60 * 60 * 24 },
-    }
+    },
   );
 
   return data.results
     .filter((provider: TMDBWatchProvider) => provider.logo_path)
     .sort(
       (a: TMDBWatchProvider, b: TMDBWatchProvider) =>
-        a.display_priority - b.display_priority
+        a.display_priority - b.display_priority,
     )
     .slice(0, 16);
+}
+
+export async function getAnimeTvShows() {
+  return fetchFromTMDB<TMDBResponse<TMDBMovie>>(
+    "/discover/tv?with_genres=16&with_original_language=ja&sort_by=popularity.desc",
+    {
+      next: { revalidate: 60 * 60 },
+    }
+  );
 }
