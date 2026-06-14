@@ -1,0 +1,63 @@
+export const navbarStyles = {
+  header:
+    "absolute left-0 top-0 z-50 w-full bg-gradient-to-b from-black/85 via-black/45 to-transparent",
+
+  container:
+    "mx-auto flex max-w-[1180px] items-center justify-between px-5 py-5 md:px-6",
+
+  logoLink: "flex items-center",
+
+  logoImage:
+    "h-auto w-[150px] md:w-[170px]",
+
+  desktopNav:
+    "hidden items-center gap-8 lg:flex",
+
+  navLink:
+    "text-sm font-semibold text-white/70 transition hover:text-white",
+
+  rightActions:
+    "hidden items-center gap-4 md:flex",
+
+  searchButton:
+    "flex h-11 w-11 items-center justify-center rounded-xl text-white/70 transition hover:bg-white/10 hover:text-white",
+
+  signUpButton:
+    "rounded-xl border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white hover:text-black",
+
+  loginButton:
+    "rounded-xl bg-[#00A86B] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#00945f]",
+
+  mobileMenuButton:
+    "flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 lg:hidden",
+
+  mobileOverlay:
+    "fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden",
+
+  mobilePanel:
+    "fixed right-5 top-5 z-50 w-[calc(100%-40px)] max-w-[360px] rounded-3xl border border-white/10 bg-[#0b0c12] p-5 shadow-2xl shadow-black/60 lg:hidden",
+
+  mobilePanelHeader:
+    "mb-8 flex items-center justify-between",
+
+  mobileCloseButton:
+    "flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white transition hover:bg-white/10",
+
+  mobileNav:
+    "flex flex-col gap-2",
+
+  mobileNavLink:
+    "rounded-2xl px-4 py-4 text-base font-semibold text-white/75 transition hover:bg-white/5 hover:text-white",
+
+  mobileActions:
+    "mt-8 grid grid-cols-2 gap-3",
+
+  mobileSignUp:
+    "rounded-2xl border border-white/20 px-4 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-black",
+
+  mobileLogin:
+    "rounded-2xl bg-[#00A86B] px-4 py-4 text-center text-sm font-semibold text-white transition hover:bg-[#00945f]",
+
+  mobileSearch:
+    "mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white/60",
+};
