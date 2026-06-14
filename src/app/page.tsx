@@ -2,6 +2,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import HeroSection from "@/components/home/HeroSection/HeroSection";
 import ProviderMarquee from "@/components/home/ProviderMarquee/ProviderMarquee";
 import JustReleaseSection from "@/components/home/JustReleaseSection/JustReleaseSection";
+import PopularWeekSection from "@/components/home/PopularWeekSection/PopularWeekSection";
 
 import {
   getMovieWatchProviders,
@@ -18,12 +19,14 @@ export default async function HomePage() {
 
   const heroMovies = trendingMovies.results.slice(0, 4);
   const justReleaseMovies = nowPlayingMovies.results.slice(0, 10);
+  const popularWeekMovies = trendingMovies.results.slice(0, 10);
 
   return (
     <MainLayout>
       <HeroSection movies={heroMovies} />
       <ProviderMarquee providers={watchProviders} />
       <JustReleaseSection movies={justReleaseMovies} />
+      <PopularWeekSection movies={popularWeekMovies} />
     </MainLayout>
   );
 }
