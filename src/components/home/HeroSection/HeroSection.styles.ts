@@ -13,7 +13,7 @@ export const heroStyles = {
     "absolute inset-0 bg-gradient-to-b from-[#06070d]/95 via-[#06070d]/35 to-transparent",
 
   overlaySide:
-    "absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-black/25",
+    "absolute inset-0 ",
 
   overlayBottom:
     "absolute inset-0 bg-gradient-to-t from-[#06070d] via-[#06070d]/55 to-transparent",
