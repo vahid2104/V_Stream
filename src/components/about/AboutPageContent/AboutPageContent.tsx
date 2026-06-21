@@ -1,9 +1,7 @@
 import {
   BadgeCheck,
   Clapperboard,
-  Cloud,
   Code2,
-  Database,
   Heart,
   MessageCircle,
   Sparkles,
