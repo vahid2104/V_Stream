@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
-
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "V Stream",
-  description: "A movie streaming platform.",
+  description: "Movie streaming platform built with Next.js and TMDB API",
 };
 
 export default function RootLayout({
@@ -14,11 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className="h-full antialiased"
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
