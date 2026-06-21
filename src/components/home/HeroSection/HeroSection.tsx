@@ -6,7 +6,7 @@ import { Bookmark, Play } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import { getTMDBImageUrl } from "@/lib/imageUrl";
-import type { TMDBMovie } from "@/types/tmdb";
+import type { TMDBMovie, TMDBVideo } from "@/types/tmdb";
 
 import { heroStyles } from "./HeroSection.styles";
 
@@ -16,6 +16,9 @@ type HeroSectionProps = {
 
 export default function HeroSection({ movies }: HeroSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const [trailer, setTrailer] = useState<TMDBVideo | null>(null);
+  const [isTrailerLoading, setIsTrailerLoading] = useState(false);
 
   const activeMovie = movies[activeIndex];
 
@@ -41,6 +44,32 @@ export default function HeroSection({ movies }: HeroSectionProps) {
     "N/A";
 
   const backdropUrl = getTMDBImageUrl(activeMovie.backdrop_path, "original");
+
+  async function handlePlayTrailer() {
+    setIsTrailerLoading(true);
+
+    try {
+      const mediaType = activeMovie.media_type || "movie";
+
+      const response = await fetch(
+        `/api/trailer?mediaType=${mediaType}&id=${activeMovie.id}`
+      );
+
+      const data = await response.json();
+
+      if (!data.trailer) {
+        alert("Trailer is not available for this title.");
+        return;
+      }
+
+      setTrailer(data.trailer);
+      setIsTrailerOpen(true);
+    } catch {
+      alert("Could not load trailer. Please try again.");
+    } finally {
+      setIsTrailerLoading(false);
+    }
+  }
 
   return (
     <section className={heroStyles.section}>
@@ -71,9 +100,13 @@ export default function HeroSection({ movies }: HeroSectionProps) {
           <p className={heroStyles.overview}>{activeMovie.overview}</p>
 
           <div className={heroStyles.actions}>
-            <Button variant="main">
+            <Button
+              variant="main"
+              onClick={handlePlayTrailer}
+              disabled={isTrailerLoading}
+            >
               <Play size={16} fill="white" />
-              Watch Trailer
+              {isTrailerLoading ? "Loading..." : "Watch Trailer"}
             </Button>
 
             <Button variant="ghost">
@@ -101,6 +134,34 @@ export default function HeroSection({ movies }: HeroSectionProps) {
           ))}
         </div>
       </div>
+
+      {isTrailerOpen && trailer && (
+        <div
+          className={heroStyles.trailerOverlay}
+          onClick={() => setIsTrailerOpen(false)}
+        >
+          <div
+            className={heroStyles.trailerBox}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={heroStyles.closeTrailer}
+              onClick={() => setIsTrailerOpen(false)}
+            >
+              Close
+            </button>
+
+            <iframe
+              className={heroStyles.trailerIframe}
+              src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1`}
+              title={`${title} trailer`}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

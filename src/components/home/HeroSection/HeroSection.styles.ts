@@ -12,8 +12,7 @@ export const heroStyles = {
   overlayTop:
     "absolute inset-0 bg-gradient-to-b from-[#06070d]/95 via-[#06070d]/35 to-transparent",
 
-  overlaySide:
-    "absolute inset-0 ",
+  overlaySide: "absolute inset-0 ",
 
   overlayBottom:
     "absolute inset-0 bg-gradient-to-t from-[#06070d] via-[#06070d]/55 to-transparent",
@@ -37,14 +36,21 @@ export const heroStyles = {
   actions:
     "mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4",
 
-  dotsOuter:
-    "absolute bottom-20 left-0 right-0 z-20 hidden px-6 md:block",
+  dotsOuter: "absolute bottom-20 left-0 right-0 z-20 hidden px-6 md:block",
 
-  dotsInner:
-    "mx-auto flex max-w-[1180px] items-center justify-end gap-2",
+  dotsInner: "mx-auto flex max-w-[1180px] items-center justify-end gap-2",
 
   dotActive: "h-2 w-7 rounded-full bg-white transition-all",
 
   dotInactive:
     "h-2 w-2 rounded-full bg-white/40 transition-all hover:bg-white/70",
+  trailerOverlay:
+    "fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm",
+
+  trailerBox: "relative aspect-video w-full max-w-5xl",
+
+  trailerIframe: "h-full w-full rounded-2xl border border-white/10",
+
+  closeTrailer:
+    "absolute -top-12 right-0 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/20",
 };
