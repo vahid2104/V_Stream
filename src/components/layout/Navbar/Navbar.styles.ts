@@ -30,8 +30,7 @@ export const navbarStyles = {
   avatar:
     "flex h-9 w-9 items-center justify-center rounded-full bg-[#00A86B] text-sm font-bold text-white",
 
-  userName:
-    "max-w-[130px] truncate text-sm font-semibold text-white",
+  userName: "max-w-[130px] truncate text-sm font-semibold text-white",
 
   logoutButton:
     "rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white",
@@ -65,15 +64,36 @@ export const navbarStyles = {
   mobileLogin:
     "rounded-2xl bg-[#00A86B] px-4 py-4 text-center text-sm font-semibold text-white transition hover:bg-[#00945f]",
 
-  mobileUserBox:
-    "mt-8 rounded-2xl border border-white/10 bg-white/5 p-4",
+  mobileUserBox: "mt-8 rounded-2xl border border-white/10 bg-white/5 p-4",
 
-  mobileUserName:
-    "text-sm font-bold text-white",
+  mobileUserName: "text-sm font-bold text-white",
 
-  mobileUserEmail:
-    "mt-1 line-clamp-1 text-xs text-white/45",
+  mobileUserEmail: "mt-1 line-clamp-1 text-xs text-white/45",
 
   mobileLogout:
     "mt-4 w-full rounded-xl border border-white/10 px-4 py-3 text-sm font-semibold text-white/75 transition hover:bg-white/10 hover:text-white",
+  searchWrapper: "relative",
+
+  searchInputWrapper:
+    "fixed left-1/2 top-6 z-[70] hidden h-14 w-[min(640px,calc(100vw-48px))] -translate-x-1/2 items-center gap-3 rounded-2xl border border-[#00A86B]/50 bg-[#07080d]/95 px-5 text-white shadow-2xl shadow-[#00A86B]/10 backdrop-blur-xl transition md:flex",
+
+  searchInput:
+    "w-full bg-transparent text-sm font-medium text-white outline-none placeholder:text-white/35",
+
+  searchDropdown:
+    "fixed left-1/2 top-[88px] z-[70] hidden max-h-[420px] w-[min(640px,calc(100vw-48px))] -translate-x-1/2 overflow-y-auto rounded-2xl border border-[#00A86B]/30 bg-[#07080d]/95 shadow-2xl shadow-black/70 backdrop-blur-xl md:block",
+
+  searchResult:
+    "flex w-full gap-3 border-b border-white/5 p-3 text-left transition hover:bg-[#00A86B]/10",
+
+  searchResultImage:
+    "relative h-16 w-12 shrink-0 overflow-hidden rounded-lg bg-white/5",
+
+  searchResultContent: "min-w-0 flex-1",
+
+  searchResultTitle: "line-clamp-1 text-sm font-bold text-white",
+
+  searchResultMeta: "mt-1 text-xs text-white/45",
+
+  searchEmpty: "p-4 text-sm text-white/45",
 };
