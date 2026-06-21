@@ -137,8 +137,8 @@ export default function Navbar() {
               <button
                 type="button"
                 className={`${navbarStyles.searchButton} ${
-  isSearchOpen ? "bg-[#00A86B]/15 text-[#00A86B]" : ""
-}`}
+                  isSearchOpen ? "bg-[#00A86B]/15 text-[#00A86B]" : ""
+                }`}
                 aria-label="Search"
                 onClick={() => setIsSearchOpen((current) => !current)}
               >
