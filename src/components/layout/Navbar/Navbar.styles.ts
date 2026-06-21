@@ -7,7 +7,7 @@ export const navbarStyles = {
 
   logoLink: "flex items-center",
 
-  logoImage: "h-auto w-[150px] md:w-[170px]",
+  logoImage: "h-auto w-[150px] object-contain md:w-[170px]",
 
   desktopNav: "hidden items-center gap-8 lg:flex",
 

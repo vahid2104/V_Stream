@@ -281,7 +281,7 @@ export default function Navbar() {
             <div className={navbarStyles.mobilePanelHeader}>
               <Link href="/" onClick={closeMobileMenu}>
                 <Image
-                  src="/logo/logo.png"
+                  src="/logo/v_stream_logo.svg"
                   alt="V Stream"
                   width={150}
                   height={50}
