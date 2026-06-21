@@ -19,6 +19,7 @@ import {
   getUpcomingMovies,
 } from "@/services/tmdbService";
 import Footer from "@/components/layout/Footer/Footer";
+import UserWatchlistSection from "@/components/home/UserWatchlistSection/UserWatchlistSection";
 
 export default async function HomePage() {
   const [
@@ -66,6 +67,8 @@ export default async function HomePage() {
       <HeroSection movies={heroMovies} />
 
       <ProviderMarquee providers={watchProviders} />
+
+      <UserWatchlistSection />
 
       <JustReleaseSection movies={justReleaseMovies} />
 

@@ -1,7 +1,11 @@
 import {
+  collection,
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
+  orderBy,
+  query,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
@@ -25,7 +29,7 @@ export async function addToWatchlist(userId: string, item: WatchlistItem) {
 export async function removeFromWatchlist(
   userId: string,
   mediaType: string,
-  id: number
+  id: number,
 ) {
   const docId = getWatchlistDocId(mediaType, id);
 
@@ -35,10 +39,21 @@ export async function removeFromWatchlist(
 export async function checkWatchlistItem(
   userId: string,
   mediaType: string,
-  id: number
+  id: number,
 ) {
   const docId = getWatchlistDocId(mediaType, id);
   const snapshot = await getDoc(doc(db, "users", userId, "watchlist", docId));
 
   return snapshot.exists();
+}
+
+export async function getUserWatchlist(userId: string) {
+  const watchlistQuery = query(
+    collection(db, "users", userId, "watchlist"),
+    orderBy("addedAt", "desc"),
+  );
+
+  const snapshot = await getDocs(watchlistQuery);
+
+  return snapshot.docs.map((doc) => doc.data() as WatchlistItem);
 }
