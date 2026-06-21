@@ -10,6 +10,8 @@ import type {
   TMDBVideosResponse,
   TMDBWatchProvider,
   TMDBWatchProvidersResponse,
+  TMDBReview,
+  TMDBReviewsResponse,
 } from "@/types/tmdb";
 
 export async function getTrendingMovies() {
@@ -131,6 +133,23 @@ export async function getAnimeTvShows() {
     "/discover/tv?with_genres=16&with_original_language=ja&sort_by=popularity.desc",
     {
       next: { revalidate: 60 * 60 },
-    }
+    },
   );
+}
+
+export async function getSimilarMedia(mediaType: MediaType, id: number) {
+  return fetchFromTMDB<TMDBResponse<TMDBMovie>>(`/${mediaType}/${id}/similar`, {
+    next: { revalidate: 60 * 60 },
+  });
+}
+
+export async function getMediaReviews(mediaType: MediaType, id: number) {
+  const data = await fetchFromTMDB<TMDBReviewsResponse>(
+    `/${mediaType}/${id}/reviews`,
+    {
+      next: { revalidate: 60 * 60 },
+    },
+  );
+
+  return data.results.slice(0, 4) as TMDBReview[];
 }

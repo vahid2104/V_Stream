@@ -81,3 +81,25 @@ export type TMDBWatchProvider = {
 export type TMDBWatchProvidersResponse = {
   results: TMDBWatchProvider[];
 };
+
+export type TMDBReview = {
+  id: string;
+  author: string;
+  content: string;
+  created_at: string;
+  url: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string | null;
+    rating: number | null;
+  };
+};
+
+export type TMDBReviewsResponse = {
+  id: number;
+  page: number;
+  results: TMDBReview[];
+  total_pages: number;
+  total_results: number;
+};
