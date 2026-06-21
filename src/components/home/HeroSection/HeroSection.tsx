@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Bookmark, Play } from "lucide-react";
+import { Play } from "lucide-react";
+import WatchlistButton from "@/components/user/WatchlistButton/WatchlistButton";
 
 import Button from "@/components/ui/Button";
 import { getTMDBImageUrl } from "@/lib/imageUrl";
@@ -27,7 +28,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
 
     const interval = setInterval(() => {
       setActiveIndex((currentIndex) =>
-        currentIndex === movies.length - 1 ? 0 : currentIndex + 1
+        currentIndex === movies.length - 1 ? 0 : currentIndex + 1,
       );
     }, 5000);
 
@@ -52,7 +53,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
       const mediaType = activeMovie.media_type || "movie";
 
       const response = await fetch(
-        `/api/trailer?mediaType=${mediaType}&id=${activeMovie.id}`
+        `/api/trailer?mediaType=${mediaType}&id=${activeMovie.id}`,
       );
 
       const data = await response.json();
@@ -109,10 +110,18 @@ export default function HeroSection({ movies }: HeroSectionProps) {
               {isTrailerLoading ? "Loading..." : "Watch Trailer"}
             </Button>
 
-            <Button variant="ghost">
-              <Bookmark size={16} />
-              Add Watchlist
-            </Button>
+            <WatchlistButton
+              item={{
+                id: activeMovie.id,
+                mediaType: activeMovie.media_type || "movie",
+                title,
+                posterPath: activeMovie.poster_path,
+                backdropPath: activeMovie.backdrop_path,
+                rating: activeMovie.vote_average,
+                releaseDate:
+                  activeMovie.release_date || activeMovie.first_air_date,
+              }}
+            />
           </div>
         </div>
       </div>

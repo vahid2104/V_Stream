@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { Bookmark, ChevronLeft, ChevronRight, Play, Share2 } from "lucide-react";
-
+import { ChevronLeft, ChevronRight, Play, Share2 } from "lucide-react";
+import WatchlistButton from "@/components/user/WatchlistButton/WatchlistButton";
 import Button from "@/components/ui/Button";
 import LandscapeCard from "@/components/movie/LandscapeCard/LandscapeCard";
 
@@ -61,7 +61,7 @@ export default function DetailsPageContent({
 
   function scrollRow(
     ref: React.RefObject<HTMLDivElement | null>,
-    direction: "left" | "right"
+    direction: "left" | "right",
   ) {
     if (!ref.current) return;
 
@@ -149,10 +149,17 @@ export default function DetailsPageContent({
               Play Trailer
             </Button>
 
-            <Button variant="ghost">
-              <Bookmark size={16} />
-              Add Watchlist
-            </Button>
+            <WatchlistButton
+              item={{
+                id: details.id,
+                mediaType,
+                title,
+                posterPath: details.poster_path,
+                backdropPath: details.backdrop_path,
+                rating: details.vote_average,
+                releaseDate: details.release_date || details.first_air_date,
+              }}
+            />
 
             <div className={detailsPageStyles.secondaryActions}>
               <button
