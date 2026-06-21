@@ -314,7 +314,7 @@ export default function Navbar() {
             </div>
 
             {searchQuery.trim().length >= 2 && (
-              <div className="mt-4 max-h-[280px] overflow-y-auto rounded-2xl border border-white/10 bg-white/[0.03]">
+              <div className="mt-4 max-h-70 overflow-y-auto rounded-2xl border border-white/10 bg-white/3">
                 {isSearching && (
                   <p className="p-4 text-sm text-white/45">Searching...</p>
                 )}
