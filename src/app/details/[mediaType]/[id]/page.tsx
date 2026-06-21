@@ -5,6 +5,7 @@ import {
   getMediaCredits,
   getMediaDetails,
   getMediaReviews,
+  getMediaTrailer,
   getSimilarMedia,
 } from "@/services/tmdbService";
 
@@ -22,11 +23,12 @@ export default async function DetailsPage({ params }: DetailsPageProps) {
 
   const mediaId = Number(id);
 
-  const [details, cast, similar, reviews] = await Promise.all([
+  const [details, cast, similar, reviews, trailer] = await Promise.all([
     getMediaDetails(mediaType, mediaId),
     getMediaCredits(mediaType, mediaId),
     getSimilarMedia(mediaType, mediaId),
     getMediaReviews(mediaType, mediaId),
+    getMediaTrailer(mediaType, mediaId),
   ]);
 
   return (
@@ -36,6 +38,7 @@ export default async function DetailsPage({ params }: DetailsPageProps) {
         cast={cast}
         similarItems={similar.results.slice(0, 12)}
         reviews={reviews}
+        trailer={trailer}
         mediaType={mediaType}
       />
     </MainLayout>

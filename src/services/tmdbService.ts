@@ -78,7 +78,7 @@ export async function getMediaVideos(mediaType: MediaType, id: number) {
     `/${mediaType}/${id}/videos`,
     {
       next: { revalidate: 60 * 60 },
-    },
+    }
   );
 
   return data.results;
@@ -90,11 +90,13 @@ export async function getMediaTrailer(mediaType: MediaType, id: number) {
   return (
     videos.find(
       (video: TMDBVideo) =>
-        video.site === "YouTube" && video.type === "Trailer" && video.official,
+        video.site === "YouTube" &&
+        video.type === "Trailer" &&
+        video.official
     ) ||
     videos.find(
       (video: TMDBVideo) =>
-        video.site === "YouTube" && video.type === "Trailer",
+        video.site === "YouTube" && video.type === "Trailer"
     ) ||
     null
   );
@@ -153,3 +155,5 @@ export async function getMediaReviews(mediaType: MediaType, id: number) {
 
   return data.results.slice(0, 4) as TMDBReview[];
 }
+
+

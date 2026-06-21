@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Bookmark, ChevronLeft, ChevronRight, Play, Share2 } from "lucide-react";
 
@@ -14,6 +14,7 @@ import type {
   TMDBDetails,
   TMDBMovie,
   TMDBReview,
+  TMDBVideo,
 } from "@/types/tmdb";
 
 import { detailsPageStyles } from "./DetailsPageContent.styles";
@@ -23,6 +24,7 @@ type DetailsPageContentProps = {
   cast: TMDBCastMember[];
   similarItems: TMDBMovie[];
   reviews: TMDBReview[];
+  trailer: TMDBVideo | null;
   mediaType: MediaType;
 };
 
@@ -31,10 +33,13 @@ export default function DetailsPageContent({
   cast,
   similarItems,
   reviews,
+  trailer,
   mediaType,
 }: DetailsPageContentProps) {
   const castRowRef = useRef<HTMLDivElement | null>(null);
   const similarRowRef = useRef<HTMLDivElement | null>(null);
+
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
 
   const title = details.title || details.name || "Unknown Title";
 
@@ -61,7 +66,10 @@ export default function DetailsPageContent({
     if (!ref.current) return;
 
     ref.current.scrollBy({
-      left: direction === "right" ? ref.current.clientWidth * 0.8 : -ref.current.clientWidth * 0.8,
+      left:
+        direction === "right"
+          ? ref.current.clientWidth * 0.8
+          : -ref.current.clientWidth * 0.8,
       behavior: "smooth",
     });
   }
@@ -81,6 +89,15 @@ export default function DetailsPageContent({
 
     await navigator.clipboard.writeText(shareUrl);
     alert("Link copied to clipboard!");
+  }
+
+  function handlePlayTrailer() {
+    if (!trailer) {
+      alert("Trailer is not available for this title.");
+      return;
+    }
+
+    setIsTrailerOpen(true);
   }
 
   return (
@@ -127,9 +144,9 @@ export default function DetailsPageContent({
           <p className={detailsPageStyles.overview}>{details.overview}</p>
 
           <div className={detailsPageStyles.actions}>
-            <Button variant="main">
+            <Button variant="main" onClick={handlePlayTrailer}>
               <Play size={16} fill="white" />
-              Play Now
+              Play Trailer
             </Button>
 
             <Button variant="ghost">
@@ -269,6 +286,34 @@ export default function DetailsPageContent({
             ))}
           </div>
         </section>
+      )}
+
+      {isTrailerOpen && trailer && (
+        <div
+          className={detailsPageStyles.trailerOverlay}
+          onClick={() => setIsTrailerOpen(false)}
+        >
+          <div
+            className={detailsPageStyles.trailerBox}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={detailsPageStyles.closeTrailer}
+              onClick={() => setIsTrailerOpen(false)}
+            >
+              Close
+            </button>
+
+            <iframe
+              className={detailsPageStyles.trailerIframe}
+              src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1`}
+              title={`${title} trailer`}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
       )}
     </div>
   );
