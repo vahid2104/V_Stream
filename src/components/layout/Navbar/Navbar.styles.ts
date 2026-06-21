@@ -7,17 +7,13 @@ export const navbarStyles = {
 
   logoLink: "flex items-center",
 
-  logoImage:
-    "h-auto w-[150px] md:w-[170px]",
+  logoImage: "h-auto w-[150px] md:w-[170px]",
 
-  desktopNav:
-    "hidden items-center gap-8 lg:flex",
+  desktopNav: "hidden items-center gap-8 lg:flex",
 
-  navLink:
-    "text-sm font-semibold text-white/70 transition hover:text-white",
+  navLink: "text-sm font-semibold text-white/70 transition hover:text-white",
 
-  rightActions:
-    "hidden items-center gap-4 md:flex",
+  rightActions: "hidden items-center gap-4 md:flex",
 
   searchButton:
     "flex h-11 w-11 items-center justify-center rounded-xl text-white/70 transition hover:bg-white/10 hover:text-white",
@@ -28,29 +24,40 @@ export const navbarStyles = {
   loginButton:
     "rounded-xl bg-[#00A86B] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#00945f]",
 
+  userBox:
+    "flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2",
+
+  avatar:
+    "flex h-9 w-9 items-center justify-center rounded-full bg-[#00A86B] text-sm font-bold text-white",
+
+  userName:
+    "max-w-[130px] truncate text-sm font-semibold text-white",
+
+  logoutButton:
+    "rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white",
+
   mobileMenuButton:
     "flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 lg:hidden",
 
-  mobileOverlay:
-    "fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden",
+  mobileOverlay: "fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden",
 
   mobilePanel:
     "fixed right-5 top-5 z-50 w-[calc(100%-40px)] max-w-[360px] rounded-3xl border border-white/10 bg-[#0b0c12] p-5 shadow-2xl shadow-black/60 lg:hidden",
 
-  mobilePanelHeader:
-    "mb-8 flex items-center justify-between",
+  mobilePanelHeader: "mb-8 flex items-center justify-between",
 
   mobileCloseButton:
     "flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white transition hover:bg-white/10",
 
-  mobileNav:
-    "flex flex-col gap-2",
+  mobileSearch:
+    "mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white/60",
+
+  mobileNav: "mt-6 flex flex-col gap-2",
 
   mobileNavLink:
     "rounded-2xl px-4 py-4 text-base font-semibold text-white/75 transition hover:bg-white/5 hover:text-white",
 
-  mobileActions:
-    "mt-8 grid grid-cols-2 gap-3",
+  mobileActions: "mt-8 grid grid-cols-2 gap-3",
 
   mobileSignUp:
     "rounded-2xl border border-white/20 px-4 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-black",
@@ -58,6 +65,15 @@ export const navbarStyles = {
   mobileLogin:
     "rounded-2xl bg-[#00A86B] px-4 py-4 text-center text-sm font-semibold text-white transition hover:bg-[#00945f]",
 
-  mobileSearch:
-    "mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white/60",
+  mobileUserBox:
+    "mt-8 rounded-2xl border border-white/10 bg-white/5 p-4",
+
+  mobileUserName:
+    "text-sm font-bold text-white",
+
+  mobileUserEmail:
+    "mt-1 line-clamp-1 text-xs text-white/45",
+
+  mobileLogout:
+    "mt-4 w-full rounded-xl border border-white/10 px-4 py-3 text-sm font-semibold text-white/75 transition hover:bg-white/10 hover:text-white",
 };

@@ -5,36 +5,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Search, X } from "lucide-react";
 
+import { useAuth } from "@/context/AuthContext";
+import { logoutUser } from "@/services/authService";
 import { navbarStyles } from "./Navbar.styles";
 
 const navItems = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Discover",
-    href: "/discover",
-  },
-  {
-    label: "Movie Release",
-    href: "/movie-release",
-  },
-  {
-    label: "Forum",
-    href: "/forum",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
+  { label: "Home", href: "/" },
+  { label: "Discover", href: "/discover" },
+  { label: "Movie Release", href: "/movie-release" },
+  { label: "Forum", href: "/forum" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Navbar() {
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
+  const firstLetter = displayName.charAt(0).toUpperCase();
 
   function closeMobileMenu() {
     setIsMobileMenuOpen(false);
+  }
+
+  async function handleLogout() {
+    await logoutUser();
+    closeMobileMenu();
   }
 
   return (
@@ -43,7 +39,7 @@ export default function Navbar() {
         <div className={navbarStyles.container}>
           <Link href="/" className={navbarStyles.logoLink}>
             <Image
-              src="/logo/logo.png"
+              src="/images/logo/v-stream-logo.png"
               alt="V Stream"
               width={180}
               height={60}
@@ -54,32 +50,45 @@ export default function Navbar() {
 
           <nav className={navbarStyles.desktopNav}>
             {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={navbarStyles.navLink}
-              >
+              <Link key={item.label} href={item.href} className={navbarStyles.navLink}>
                 {item.label}
               </Link>
             ))}
           </nav>
 
           <div className={navbarStyles.rightActions}>
-            <button
-              type="button"
-              className={navbarStyles.searchButton}
-              aria-label="Search"
-            >
+            <button type="button" className={navbarStyles.searchButton} aria-label="Search">
               <Search size={22} />
             </button>
 
-            <Link href="/register" className={navbarStyles.signUpButton}>
-              Sign Up
-            </Link>
+            {!isLoading && !isAuthenticated && (
+              <>
+                <Link href="/register" className={navbarStyles.signUpButton}>
+                  Sign Up
+                </Link>
 
-            <Link href="/login" className={navbarStyles.loginButton}>
-              Login
-            </Link>
+                <Link href="/login" className={navbarStyles.loginButton}>
+                  Login
+                </Link>
+              </>
+            )}
+
+            {!isLoading && isAuthenticated && (
+              <>
+                <div className={navbarStyles.userBox}>
+                  <div className={navbarStyles.avatar}>{firstLetter}</div>
+                  <span className={navbarStyles.userName}>{displayName}</span>
+                </div>
+
+                <button
+                  type="button"
+                  className={navbarStyles.logoutButton}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            )}
           </div>
 
           <button
@@ -106,7 +115,7 @@ export default function Navbar() {
             <div className={navbarStyles.mobilePanelHeader}>
               <Link href="/" onClick={closeMobileMenu}>
                 <Image
-                  src="/logo/logo.png"
+                  src="/images/logo/v-stream-logo.png"
                   alt="V Stream"
                   width={150}
                   height={50}
@@ -142,23 +151,40 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className={navbarStyles.mobileActions}>
-              <Link
-                href="/register"
-                className={navbarStyles.mobileSignUp}
-                onClick={closeMobileMenu}
-              >
-                Sign Up
-              </Link>
+            {!isLoading && !isAuthenticated && (
+              <div className={navbarStyles.mobileActions}>
+                <Link
+                  href="/register"
+                  className={navbarStyles.mobileSignUp}
+                  onClick={closeMobileMenu}
+                >
+                  Sign Up
+                </Link>
 
-              <Link
-                href="/login"
-                className={navbarStyles.mobileLogin}
-                onClick={closeMobileMenu}
-              >
-                Login
-              </Link>
-            </div>
+                <Link
+                  href="/login"
+                  className={navbarStyles.mobileLogin}
+                  onClick={closeMobileMenu}
+                >
+                  Login
+                </Link>
+              </div>
+            )}
+
+            {!isLoading && isAuthenticated && (
+              <div className={navbarStyles.mobileUserBox}>
+                <p className={navbarStyles.mobileUserName}>{displayName}</p>
+                <p className={navbarStyles.mobileUserEmail}>{user?.email}</p>
+
+                <button
+                  type="button"
+                  className={navbarStyles.mobileLogout}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </>
       )}
