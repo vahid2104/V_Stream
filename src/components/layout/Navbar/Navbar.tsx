@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className={navbarStyles.container}>
           <Link href="/" className={navbarStyles.logoLink}>
             <Image
-              src="/images/logo/v-stream-logo.png"
+              src="/logo/logo.png"
               alt="V Stream"
               width={180}
               height={60}
