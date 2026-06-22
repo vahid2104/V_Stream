@@ -9,11 +9,8 @@ V Stream is a full-stack portfolio project inspired by modern streaming services
 ## 🌐 Live Demo
 
 🔗 **Production URL:**
-[Add your Vercel deployment link here]
 
-Example:
-
-https://your-project.vercel.app
+https://v-stream-liard.vercel.app/
 
 ---
 
