@@ -29,8 +29,6 @@ export const detailsPageStyles = {
 
   rating: "text-yellow-400",
 
-  overview: "mt-6 max-w-[760px] text-sm leading-7 text-white/75 md:text-base",
-
   actions: "mt-8 flex flex-wrap items-center gap-4",
 
   secondaryActions: "hidden items-center gap-4 lg:flex",

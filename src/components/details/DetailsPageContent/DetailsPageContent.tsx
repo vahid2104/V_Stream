@@ -144,8 +144,6 @@ export default function DetailsPageContent({
             ))}
           </div>
 
-          <p className={detailsPageStyles.overview}>{details.overview}</p>
-
           <div className={detailsPageStyles.actions}>
             <Button variant="main" onClick={handlePlayTrailer}>
               <Play size={16} fill="white" />
