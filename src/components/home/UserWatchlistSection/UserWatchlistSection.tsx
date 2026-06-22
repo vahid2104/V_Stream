@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useAuth } from "@/context/AuthContext";
 import { getTMDBImageUrl } from "@/lib/imageUrl";
@@ -44,7 +45,9 @@ export default function UserWatchlistSection() {
       </div>
 
       {isFetching ? (
-        <div className={userWatchlistStyles.empty}>Loading your watchlist...</div>
+        <div className={userWatchlistStyles.empty}>
+          Loading your watchlist...
+        </div>
       ) : (
         <div className={userWatchlistStyles.row}>
           {items.map((item) => {
@@ -57,9 +60,11 @@ export default function UserWatchlistSection() {
                 className={userWatchlistStyles.card}
               >
                 <article className={userWatchlistStyles.imageWrapper}>
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 185px, 215px"
                     className={userWatchlistStyles.image}
                   />
 
