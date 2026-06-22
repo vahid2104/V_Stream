@@ -15,7 +15,6 @@ import { navbarStyles } from "./Navbar.styles";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "Discover", href: "/discover" },
   { label: "Movie Release", href: "/movie-release" },
   { label: "Forum", href: "/forum" },
   { label: "About", href: "/about" },

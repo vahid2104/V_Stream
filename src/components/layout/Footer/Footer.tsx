@@ -10,16 +10,16 @@ const navLinks = [
     href: "/",
   },
   {
-    label: "Discover",
-    href: "/discover",
-  },
-  {
     label: "Movies",
     href: "/movies",
   },
   {
     label: "Release",
     href: "/movie-release",
+  },
+   {
+    label: "About",
+    href: "/about",
   },
 ];
 
@@ -31,10 +31,6 @@ const bottomLinks = [
   {
     label: "Terms of Service",
     href: "/terms",
-  },
-  {
-    label: "Language",
-    href: "/language",
   },
 ];
 

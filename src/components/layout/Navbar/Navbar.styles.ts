@@ -1,6 +1,6 @@
 export const navbarStyles = {
   header:
-    "absolute left-0 top-0 z-50 w-full bg-gradient-to-b from-black/85 via-black/45 to-transparent",
+    "absolute left-0 top-0 z-50 w-full bg-gradient-to-b from-black/90 via-black/80 to-transparent",
 
   container:
     "mx-auto flex max-w-[1180px] items-center justify-between px-5 py-5 md:px-6",
