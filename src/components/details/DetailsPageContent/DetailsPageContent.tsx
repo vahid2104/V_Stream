@@ -3,9 +3,10 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play, Share2 } from "lucide-react";
-import WatchlistButton from "@/components/user/WatchlistButton/WatchlistButton";
+
 import Button from "@/components/ui/Button";
 import LandscapeCard from "@/components/movie/LandscapeCard/LandscapeCard";
+import WatchlistButton from "@/components/user/WatchlistButton/WatchlistButton";
 
 import { getTMDBImageUrl } from "@/lib/imageUrl";
 import type {
@@ -40,6 +41,8 @@ export default function DetailsPageContent({
   const similarRowRef = useRef<HTMLDivElement | null>(null);
 
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const [isTrailerUnavailableOpen, setIsTrailerUnavailableOpen] =
+    useState(false);
 
   const title = details.title || details.name || "Unknown Title";
 
@@ -61,7 +64,7 @@ export default function DetailsPageContent({
 
   function scrollRow(
     ref: React.RefObject<HTMLDivElement | null>,
-    direction: "left" | "right",
+    direction: "left" | "right"
   ) {
     if (!ref.current) return;
 
@@ -93,7 +96,7 @@ export default function DetailsPageContent({
 
   function handlePlayTrailer() {
     if (!trailer) {
-      alert("Trailer is not available for this title.");
+      setIsTrailerUnavailableOpen(true);
       return;
     }
 
@@ -319,6 +322,35 @@ export default function DetailsPageContent({
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
+          </div>
+        </div>
+      )}
+
+      {isTrailerUnavailableOpen && (
+        <div
+          className={detailsPageStyles.trailerOverlay}
+          onClick={() => setIsTrailerUnavailableOpen(false)}
+        >
+          <div
+            className={detailsPageStyles.trailerMessageBox}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2 className={detailsPageStyles.trailerMessageTitle}>
+              Trailer unavailable
+            </h2>
+
+            <p className={detailsPageStyles.trailerMessageText}>
+              Sorry, the trailer for this title is not available right now or
+              cannot be played at the moment.
+            </p>
+
+            <button
+              type="button"
+              className={detailsPageStyles.trailerMessageButton}
+              onClick={() => setIsTrailerUnavailableOpen(false)}
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}

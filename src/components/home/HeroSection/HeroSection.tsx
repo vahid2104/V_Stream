@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
-import WatchlistButton from "@/components/user/WatchlistButton/WatchlistButton";
 
 import Button from "@/components/ui/Button";
+import WatchlistButton from "@/components/user/WatchlistButton/WatchlistButton";
 import { getTMDBImageUrl } from "@/lib/imageUrl";
 import type { TMDBMovie, TMDBVideo } from "@/types/tmdb";
 
@@ -18,6 +18,8 @@ type HeroSectionProps = {
 export default function HeroSection({ movies }: HeroSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const [isTrailerUnavailableOpen, setIsTrailerUnavailableOpen] =
+    useState(false);
   const [trailer, setTrailer] = useState<TMDBVideo | null>(null);
   const [isTrailerLoading, setIsTrailerLoading] = useState(false);
 
@@ -28,7 +30,7 @@ export default function HeroSection({ movies }: HeroSectionProps) {
 
     const interval = setInterval(() => {
       setActiveIndex((currentIndex) =>
-        currentIndex === movies.length - 1 ? 0 : currentIndex + 1,
+        currentIndex === movies.length - 1 ? 0 : currentIndex + 1
       );
     }, 5000);
 
@@ -53,20 +55,20 @@ export default function HeroSection({ movies }: HeroSectionProps) {
       const mediaType = activeMovie.media_type || "movie";
 
       const response = await fetch(
-        `/api/trailer?mediaType=${mediaType}&id=${activeMovie.id}`,
+        `/api/trailer?mediaType=${mediaType}&id=${activeMovie.id}`
       );
 
       const data = await response.json();
 
       if (!data.trailer) {
-        alert("Trailer is not available for this title.");
+        setIsTrailerUnavailableOpen(true);
         return;
       }
 
       setTrailer(data.trailer);
       setIsTrailerOpen(true);
     } catch {
-      alert("Could not load trailer. Please try again.");
+      setIsTrailerUnavailableOpen(true);
     } finally {
       setIsTrailerLoading(false);
     }
@@ -168,6 +170,35 @@ export default function HeroSection({ movies }: HeroSectionProps) {
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
+          </div>
+        </div>
+      )}
+
+      {isTrailerUnavailableOpen && (
+        <div
+          className={heroStyles.trailerOverlay}
+          onClick={() => setIsTrailerUnavailableOpen(false)}
+        >
+          <div
+            className={heroStyles.trailerMessageBox}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2 className={heroStyles.trailerMessageTitle}>
+              Trailer unavailable
+            </h2>
+
+            <p className={heroStyles.trailerMessageText}>
+              Sorry, the trailer for this title is not available right now or
+              cannot be played at the moment.
+            </p>
+
+            <button
+              type="button"
+              className={heroStyles.trailerMessageButton}
+              onClick={() => setIsTrailerUnavailableOpen(false)}
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}

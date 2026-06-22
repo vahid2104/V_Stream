@@ -25,8 +25,7 @@ export const detailsPageStyles = {
   title:
     "max-w-[720px] text-4xl font-bold leading-tight text-white md:text-6xl",
 
-  meta:
-    "mt-4 flex flex-wrap items-center gap-2 text-sm font-medium text-white/65",
+  meta: "mt-4 flex flex-wrap items-center gap-2 text-sm font-medium text-white/65",
 
   rating: "text-yellow-400",
 
@@ -99,4 +98,13 @@ export const detailsPageStyles = {
 
   fallback:
     "flex h-full w-full items-center justify-center bg-white/5 px-4 text-center text-sm text-white/40",
+  trailerMessageBox:
+    "w-full max-w-[420px] rounded-3xl border border-white/10 bg-[#0b0c12] p-7 text-center shadow-2xl shadow-black/60",
+
+  trailerMessageTitle: "text-xl font-bold text-white",
+
+  trailerMessageText: "mt-3 text-sm leading-6 text-white/55",
+
+  trailerMessageButton:
+    "mt-6 rounded-xl bg-[#00A86B] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#00945f]",
 };

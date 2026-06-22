@@ -53,4 +53,14 @@ export const heroStyles = {
 
   closeTrailer:
     "absolute -top-12 right-0 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/20",
+
+  trailerMessageBox:
+    "w-full max-w-[420px] rounded-3xl border border-white/10 bg-[#0b0c12] p-7 text-center shadow-2xl shadow-black/60",
+
+  trailerMessageTitle: "text-xl font-bold text-white",
+
+  trailerMessageText: "mt-3 text-sm leading-6 text-white/55",
+
+  trailerMessageButton:
+    "mt-6 rounded-xl bg-[#00A86B] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#00945f]",
 };
