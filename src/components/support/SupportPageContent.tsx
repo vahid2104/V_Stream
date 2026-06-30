@@ -2,7 +2,6 @@ import Link from "next/link";
 import ContactForm from "./ContactForm";
 import PosterCollage from "./PosterCollage";
 import SupportFAQ from "./SupportFAQ";
-import { serviceStatus } from "./supportMockData";
 import { supportStyles } from "./SupportPageContent.styles";
 
 import type { TMDBMovie } from "@/types/tmdb";
@@ -24,16 +23,6 @@ export default function SupportPageContent({ posters }: SupportPageContentProps)
             <p className={supportStyles.subtitle}>
               We are here to help you with your account, watchlist, trailers, movie data and overall V Stream experience.
             </p>
-
-            <div className={supportStyles.statusGrid}>
-              {serviceStatus.map((item) => (
-                <div key={item.label} className={supportStyles.statusCard}>
-                  <div className={supportStyles.statusDot} />
-                  <p className={supportStyles.statusLabel}>{item.label}</p>
-                  <p className={supportStyles.statusText}>{item.status}</p>
-                </div>
-              ))}
-            </div>
 
             <div className={supportStyles.collageWrapper}>
               <PosterCollage posters={posters} />

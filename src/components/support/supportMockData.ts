@@ -40,18 +40,3 @@ export const supportFaqs = [
       "You can fill out the support form on this page. For now it uses client-side validation and a mock ticket response.",
   },
 ];
-
-export const serviceStatus = [
-  {
-    label: "TMDB API",
-    status: "Online",
-  },
-  {
-    label: "Authentication",
-    status: "Online",
-  },
-  {
-    label: "Firestore",
-    status: "Online",
-  },
-];
