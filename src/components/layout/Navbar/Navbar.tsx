@@ -17,6 +17,7 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Movie Release", href: "/movie-release" },
   { label: "Forum", href: "/forum" },
+  { label: "Support", href: "/support" },
   { label: "About", href: "/about" },
 ];
 

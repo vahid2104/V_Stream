@@ -17,6 +17,10 @@ const navLinks = [
     label: "Release",
     href: "/movie-release",
   },
+  {
+    label: "Support",
+    href: "/support",
+  },
    {
     label: "About",
     href: "/about",
