@@ -13,6 +13,10 @@ export const navbarStyles = {
 
   navLink: "text-sm font-semibold text-white/70 transition hover:text-white",
 
+  navLinkActive: "text-white",
+
+  mobileNavLinkActive: "bg-[#00A86B]/15 text-[#00A86B]",
+
   rightActions: "hidden items-center gap-4 md:flex",
 
   searchButton:

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
 
 import { useAuth } from "@/context/AuthContext";
@@ -18,13 +18,14 @@ const navItems = [
   { label: "Movie Release", href: "/movie-release" },
   { label: "Forum", href: "/forum" },
   { label: "Support", href: "/support" },
+  { label: "Subscriptions", href: "/subscriptions" },
   { label: "About", href: "/about" },
 ];
 
 export default function Navbar() {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
-
+  const pathname = usePathname();
   const searchRef = useRef<HTMLDivElement | null>(null);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -36,6 +37,13 @@ export default function Navbar() {
   const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
   const firstLetter = displayName.charAt(0).toUpperCase();
 
+  function isActiveLink(href: string) {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname.startsWith(href);
+  }
   function closeMobileMenu() {
     setIsMobileMenuOpen(false);
   }
@@ -125,7 +133,9 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={navbarStyles.navLink}
+                className={`${navbarStyles.navLink} ${
+                  isActiveLink(item.href) ? navbarStyles.navLinkActive : ""
+                }`}
               >
                 {item.label}
               </Link>
@@ -376,7 +386,11 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={navbarStyles.mobileNavLink}
+                  className={`${navbarStyles.mobileNavLink} ${
+                    isActiveLink(item.href)
+                      ? navbarStyles.mobileNavLinkActive
+                      : ""
+                  }`}
                   onClick={closeMobileMenu}
                 >
                   {item.label}
