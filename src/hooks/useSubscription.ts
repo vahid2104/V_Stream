@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
+import { db } from "@/lib/firebase";
+import { useAuth } from "@/context/AuthContext";
 import type { BillingCycle } from "@/components/subscription/subscriptionMockData";
 
 export type MockSubscription = {
@@ -13,8 +16,6 @@ export type MockSubscription = {
   startedAt: string;
   expiresAt: string;
 };
-
-const STORAGE_KEY = "v_stream_mock_subscription";
 
 function getExpiryDate(isTrial: boolean, billingCycle: BillingCycle) {
   const date = new Date();
@@ -34,21 +35,56 @@ function getExpiryDate(isTrial: boolean, billingCycle: BillingCycle) {
 }
 
 export function useSubscription() {
-  const [subscription, setSubscription] = useState<MockSubscription | null>(null);
+  const { user } = useAuth();
+
+  const [subscription, setSubscription] = useState<MockSubscription | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  function fetchSubscription() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if (!saved) {
+  const fetchSubscription = useCallback(async () => {
+    if (!user) {
       setSubscription(null);
       setLoading(false);
       return;
     }
 
-    setSubscription(JSON.parse(saved));
-    setLoading(false);
-  }
+    setLoading(true);
+    setError("");
+
+    try {
+      const subscriptionRef = doc(
+        db,
+        "users",
+        user.uid,
+        "subscription",
+        "current"
+      );
+
+      const snapshot = await getDoc(subscriptionRef);
+
+      if (!snapshot.exists()) {
+        setSubscription(null);
+        return;
+      }
+
+      setSubscription(snapshot.data() as MockSubscription);
+    } catch {
+      setError("Failed to load subscription.");
+      setSubscription(null);
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      fetchSubscription();
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [fetchSubscription]);
 
   async function subscribe(
     planId: string,
@@ -56,7 +92,9 @@ export function useSubscription() {
     billingCycle: BillingCycle,
     isTrial: boolean
   ) {
-    await new Promise((resolve) => setTimeout(resolve, 900));
+    if (!user) {
+      throw new Error("User is not authenticated.");
+    }
 
     const nextSubscription: MockSubscription = {
       planId,
@@ -68,21 +106,28 @@ export function useSubscription() {
       expiresAt: getExpiryDate(isTrial, billingCycle),
     };
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSubscription));
+    const subscriptionRef = doc(
+      db,
+      "users",
+      user.uid,
+      "subscription",
+      "current"
+    );
+
+    await setDoc(subscriptionRef, {
+      ...nextSubscription,
+      updatedAt: serverTimestamp(),
+    });
+
     setSubscription(nextSubscription);
 
     return nextSubscription;
   }
 
-  useEffect(() => {
-  queueMicrotask(() => {
-    fetchSubscription();
-  });
-}, []);
-
   return {
     subscription,
     loading,
+    error,
     subscribe,
     fetchSubscription,
   };
